@@ -1,5 +1,10 @@
 <?php // callback.php
 
+include(‘conect_db.php’);
+date_default_timezone_set(“Asia/Bangkok”);
+$datef = date(‘Y-m-d’);
+
+
 require "vendor/autoload.php";
 require_once('vendor/linecorp/line-bot-sdk/line-bot-sdk-tiny/LINEBotTiny.php');
 
@@ -19,12 +24,18 @@ if (!is_null($events['events'])) {
 			$text = $event['source']['userId'];
 			// Get replyToken
 			$replyToken = $event['replyToken'];
+			
+			$queryText = $request[“queryResult”][“queryText”];
 
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
 				'text' => $text
 			];
+			
+			$query = “INSERT INTO line_log(user_id,text,date_time) VALUE (‘$text’,’$queryText’,NOW())”;
+			
+			$resource = mysql_query($query) or die (“error”.mysql_error());
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
