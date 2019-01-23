@@ -25,7 +25,7 @@ if (!is_null($events['events'])) {
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			
-			$queryText = $request[“queryResult”][“queryText”];
+			$queryText = $events['queryResult']['queryText'];
 
 			// Build message to reply back
 			$messages = [
@@ -33,9 +33,9 @@ if (!is_null($events['events'])) {
 				'text' => $text
 			];
 			
-			$query = “INSERT INTO line_log(user_id,text,date_time) VALUE (‘$text’,’$queryText’,NOW())”;
+			$query = 'INSERT INTO line_log(user_id,text,date_time) VALUE (‘$text’,’$queryText’,NOW())';
 			
-			$resource = mysql_query($query) or die (“error”.mysql_error());
+			$resource = mysql_query($query) or die ('error'.mysql_error());
 
 			// Make a POST Request to Messaging API to reply to sender
 			$url = 'https://api.line.me/v2/bot/message/reply';
