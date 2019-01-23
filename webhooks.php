@@ -1,6 +1,6 @@
 <?php // callback.php
 
-include(‘conect_db.php’);
+include(‘connect_db.php’);
 date_default_timezone_set(“Asia/Bangkok”);
 $datef = date(‘Y-m-d’);
 
